@@ -1,0 +1,123 @@
+html
+{
+  font-family: sans-serif;
+  background: blue;
+  height: 100%;
+}
+
+* {
+    box-sizing: content-box;
+}
+#content
+{
+      margin: auto;
+      margin-top: 70px;
+      width: 80%;
+      height: 80%;
+      position: absolute;
+         top:0;
+         bottom: 0;
+         left: 0;
+         right: 0;
+}
+.editor {
+ margin: 5px;
+ padding: 5px;
+ width: 60%;
+ height: 90%;
+ float: left;
+ background: white;
+ overflow-y: scroll;
+ box-sizing: content-box;
+}
+
+#wynik {
+  margin: 5px;
+  width: 35%;
+	height: 90%;
+  float: right;
+  overflow-y: scroll;
+  box-sizing: content-box;
+}
+
+#synonim_menu {
+ margin: 5px;
+ padding: 5px;
+ width: auto;
+ height: 40%;
+ text-align: center;
+ box-sizing: content-box;
+ background: #ffffff;
+ overflow-y: scroll;
+}
+
+#slownik_info
+{
+ margin: 5px;
+ padding: 5px;
+ width: auto;
+ height: 40%;
+ text-align: center;
+ background: #ffffff;
+ overflow-y: scroll;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+ul{
+  margin: 15px;
+}
+ol{
+counter-reset: li;
+list-style: none;
+*list-style: decimal;
+font-size: 15px;
+font-family: 'Raleway', sans-serif;
+padding: 0;
+margin-bottom: 4em;
+}
+
+ol ol{
+margin: 0 0 0 2em;
+}
+
+a{
+position: relative;
+display: block;
+padding: .4em .4em .4em 2em;
+*padding: .4em;
+margin: .5em 0;
+background: #FC756F;
+color: #444;
+text-decoration: none;
+transition: all .2s ease-in-out;
+}
+
+a:hover{
+background: #d6d4d4;
+text-decoration:none;
+transform: scale(1.1);
+}
+
+a:before{
+content: counter(li);
+counter-increment: li;
+position: absolute;
+left: -1.3em;
+top: 50%;
+margin-top: -1.3em;
+background:#FC756F;
+height: 2em;
+width: 2em;
+line-height: 2em;
+border: .3em solid #fff;
+text-align: center;
+font-weight: bold;
+color:#FFF;
+}
