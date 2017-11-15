@@ -41,17 +41,10 @@ export default class App extends React.Component {
     }
   })
   .then(function (response) {
-
-    var speech_partsARRAY = response.data.speech_parts;
-    var speech_partsLIST = speech_partsARRAY.map(function(person)
+    var dataforwordRAW = response.data.dataforword;
+    var dataforwordLIST = dataforwordRAW.map(function(person)
   {return <li><a href = '#'>{person}</a></li>;});
-  ReactDOM.render(<ul>{speech_partsLIST}</ul>,document.getElementById('speech_partsUI'))
-
-  var synonyms = response.data.synonims;
-	var synolist = synonyms.map(function(person){
-	return <li><a href = '#'>{person}</a></li>;
-});
-ReactDOM.render(<ul>{synolist}</ul>,document.getElementById('synonim_menu'))
+  ReactDOM.render(<ul>{dataforwordLIST}</ul>,document.getElementById('DATAWORD'))
   })
   .catch(function (error) {
     console.log(error);
@@ -60,8 +53,8 @@ ReactDOM.render(<ul>{synolist}</ul>,document.getElementById('synonim_menu'))
 
   /*-------------------------------------------------------------------------------------------*/
 
-  _daneslownik(props){
-  axios.get('/slownik_info',{})
+  _data_OWL1(props){
+  axios.get('/OWL_DATA_CLASSES',{})
         .then(function(response){
      console.log(response.data);
  /*console log odpowiada za wyswietlanie co jest pbierane z serwera(na stronie sie nie wyswietla)*/
@@ -69,24 +62,58 @@ ReactDOM.render(<ul>{synolist}</ul>,document.getElementById('synonim_menu'))
    console.log(response.statusText);
    console.log(response.headers);
    console.log(response.config);
- var dane1 = response.data.res
- var dane1list = dane1.map(function(person){
+ var dataCLASSES = response.data.dataCLASSESback
+ var dataCLASSESlist = dataCLASSES.map(function(person){
  return <li><a href = '#'>{person}</a></li>;
 });
-ReactDOM.render(<ul>{dane1list}</ul>,document.getElementById('slownik_info'))
+ReactDOM.render(<ul>{dataCLASSESlist}</ul>,document.getElementById('OWL_DATA_CLASSES'))
    }).catch(function(error){
      console.log(error);
 
-	var tymczasowa_lista = ['dog' , 'cat', 'costam', 'xd', 'xd']
+	var tymczasowa_lista = ['ASDASDASDASDASD' , '2', '3', '4', '5','6','7']
 	/*map robi liste slow */
-	var synolist = tymczasowa_lista.map(function(person){
-	return <li><a href = '#'>{person}</a></li>;
+	var list = tymczasowa_lista.map(function(person){
+	return <ol><a href = '#'>{person}</a></ol>;
 	 });
-	  ReactDOM.render(<ul>{synolist}</ul>,document.getElementById('slownik_info'))
-
+	  ReactDOM.render(<ul>{list}</ul>,document.getElementById('OWL_DATA_CLASSES'))
    });
  }
-
+/*-------------------------------------------------------------------------------*/
+ _data_OWL2(props){
+ axios.get('/OWL_DATA_INDIVIDUALS',{})
+       .then(function(response){
+    console.log(response.data);
+  console.log(response.status);
+  console.log(response.statusText);
+  console.log(response.headers);
+  console.log(response.config);
+var dataIND = response.data.dataINDIback
+var dataINDlist = dataIND.map(function(person){
+return <li><a href = '#'>{person}</a></li>;
+});
+ReactDOM.render(<ul>{dataINDlist}</ul>,document.getElementById('OWL_DATA_INDIVIDUALS'))
+  }).catch(function(error){
+    console.log(error);
+  });
+}
+  /*-------------------------------------------------------------------------------------------*/
+_data_OWL3(props){
+axios.get('/OWL_DATA_OBJECT_PROPERTIES',{})
+      .then(function(response){
+   console.log(response.data);
+ console.log(response.status);
+ console.log(response.statusText);
+ console.log(response.headers);
+ console.log(response.config);
+var dataPROPERTIES = response.data.dataPROPERTIESback
+var dataPROPERTIESlist = dataPROPERTIES.map(function(person){
+return <li><a href = '#'>{person}</a></li>;
+});
+ReactDOM.render(<ul>{dataPROPERTIESlist}</ul>,document.getElementById('OWL_DATA_OBJECT_PROPERTIES'))
+ }).catch(function(error){
+   console.log(error);
+ });
+}
   /*-------------------------------------------------------------------------------------------*/
 
   render() {
@@ -128,11 +155,10 @@ ReactDOM.render(<ul>{dane1list}</ul>,document.getElementById('slownik_info'))
       const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
     return (
     <div id='content'>
-        <div className='editor' onClick={this.onClick}>
+      <div className='editor' onClick={this.onClick}>
           <MegadraftEditor
       editorState={this.state.editorState}
 			handleKeyCommand={this.handleKeyCommand}
-
       onChange={this.onChange}
 			handleKeyCommand={this.handleKeyCommand}
 			keyBindingFn={this.keyBindingFn}
@@ -142,12 +168,17 @@ ReactDOM.render(<ul>{dane1list}</ul>,document.getElementById('slownik_info'))
         />
         </div>
 		<div id  = 'wynik'>
-    <div id  = 'slownik_info'>
-    <button onClick={this._daneslownik.bind(this)}>Show "OWL" data</button>
+    <div id  = 'DATAWORD'></div>
+    <div id  = 'OWL_DATA_CLASSES'>
+    <button onClick={this._data_OWL1.bind(this)}>Show Classes defined in the ontology</button>
+    </div>
+    <div id  = 'OWL_DATA_INDIVIDUALS'>
+    <button onClick={this._data_OWL2.bind(this)}>Show The individuals (or instances) defined in the ontology</button>
+    </div>
+    <div id  = 'OWL_DATA_OBJECT_PROPERTIES'>
+    <button onClick={this._data_OWL3.bind(this)}>Show ObjectProperties defined in the ontology</button>
     </div>
     </div>
-    <div id = 'prz2'>{ttt}</div>
-      <div id = 'prz3'>{end2}</div>
 		</div>
     );
   }
