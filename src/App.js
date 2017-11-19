@@ -114,8 +114,34 @@ ReactDOM.render(<ul>{dataPROPERTIESlist}</ul>,document.getElementById('OWL_DATA_
    console.log(error);
  });
 }
-  /*-------------------------------------------------------------------------------------------*/
-
+/*-------------------------------------------------------------------------------------------*/
+_data_OWL_LIB1(props){
+axios.get('/OWL_DATA_LIB_button1',{})
+      .then(function(response){
+ReactDOM.render(document.getElementById('LIB'))
+ }).catch(function(error){
+   console.log(error);
+ });
+}
+/*-------------------------------------------------------------------------------------------*/
+_data_OWL_LIB2(props){
+axios.get('/OWL_DATA_LIB_button2',{})
+      .then(function(response){
+ReactDOM.render(document.getElementById('LIB'))
+ }).catch(function(error){
+   console.log(error);
+ });
+}
+/*-------------------------------------------------------------------------------------------*/
+_data_OWL_LIB3(props){
+axios.get('/OWL_DATA_LIB_button3',{})
+      .then(function(response){
+ReactDOM.render(document.getElementById('LIB'))
+ }).catch(function(error){
+   console.log(error);
+ });
+}
+/*-------------------------------------------------------------------------------------------*/
   render() {
 
     const megadraftActions = [
@@ -168,6 +194,11 @@ ReactDOM.render(<ul>{dataPROPERTIESlist}</ul>,document.getElementById('OWL_DATA_
         />
         </div>
 		<div id  = 'wynik'>
+    <div id  = 'LIB'>
+<button onClick={this._data_OWL_LIB1.bind(this)}> Pizza XML </button>
+<button onClick={this._data_OWL_LIB2.bind(this)}> 3w1 XML</button>
+<button onClick={this._data_OWL_LIB3.bind(this)}> Pizza XML</button>
+    </div>
     <div id  = 'DATAWORD'></div>
     <div id  = 'OWL_DATA_CLASSES'>
     <button onClick={this._data_OWL1.bind(this)}>Show Classes defined in the ontology</button>
