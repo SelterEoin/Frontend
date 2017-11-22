@@ -97,11 +97,34 @@ border-radius: 10px;
  margin: 5px;
  padding: 5px;
  width: auto;
+ height: 40px;
+ text-align: center;
+ overflow-y: scroll;
+}
+#SEARCH_ALL_DOM
+{
+  background-color: white;
+  border: 2px white;
+  border-radius: 10px;
+ margin: 5px;
+ padding: 5px;
+ width: auto;
+ height: 40%;
+ text-align: center;
+ overflow-y: scroll;
+}
+#SEARCH_ALL_DOM_BUTTON
+{
+  background-color: white;
+  border: 2px white;
+  border-radius: 10px;
+ margin: 5px;
+ padding: 5px;
+ width: auto;
  height: 25px;
  text-align: center;
  overflow-y: scroll;
 }
-
 td, th {
     border: 1px solid #219bff;
     text-align: left;

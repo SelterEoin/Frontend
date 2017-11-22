@@ -1,13 +1,9 @@
 import React, { Component }  from 'react';
-
 import { MegadraftEditor, MegadraftIcons, MyPageLinkIcon } from 'megadraft';
-
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
-
 var ReactDOM = require('react-dom');
 import {Editor, EditorState,RichUtils, convertToRaw,getDefaultKeyBinding, KeyBindingUtil} from 'draft-js';
 const {hasCommandModifier} = KeyBindingUtil;
-
 import { createStore } from 'redux';
 
 var axios = require('axios');
@@ -33,15 +29,16 @@ export default class App extends React.Component {
     var currentContent = editorState.getCurrentContent();
     var currentContentBlock = currentContent.getBlockForKey(anchorKey);
     var text = currentContentBlock.getText();
+    console.log(currentContentBlock);
     console.log(id_kursora+text)
-    axios.get('/click_event=', {
+    axios.get('/one_word', {
     params: {
       ID: id_kursora,
       content: text
     }
   })
   .then(function (response) {
-    var dataforwordRAW = response.data.dataforword;
+    var dataforwordRAW = response.data.one_word_list;
     var dataforwordLIST = dataforwordRAW.map(function(person)
   {return <li><a href = '#'>{person}</a></li>;});
   ReactDOM.render(<ul>{dataforwordLIST}</ul>,document.getElementById('DATAWORD'))
@@ -50,7 +47,32 @@ export default class App extends React.Component {
     console.log(error);
   });
   }
-
+  /*-------------------------------------------------------------------------------------------*/
+  _search_all(props){
+    const {editorState} = this.state;
+    var selectionState = editorState.getSelection();
+    var id_kursora = selectionState.focusOffset
+    var anchorKey = selectionState.getAnchorKey();
+    var currentContent = editorState.getCurrentContent();
+    var currentContentBlock = currentContent.getBlockForKey(anchorKey);
+    var text = currentContentBlock.getText();
+    console.log(text);
+  axios.get('/search_all',{params: {content:text}})
+        .then(function(response){
+     console.log(response.data);
+   console.log(response.status);
+   console.log(response.statusText);
+   console.log(response.headers);
+   console.log(response.config);
+ var words_in = response.data.response_search_all_list
+ var words_in_list = words_in.map(function(person){
+ return <li><a href = '#'>{person}</a></li>;
+});
+ReactDOM.render(<ul>{words_in_list}</ul>,document.getElementById('SEARCH_ALL_DOM'))
+   }).catch(function(error){
+     console.log(error);
+   });
+ }
   /*-------------------------------------------------------------------------------------------*/
 
   _data_OWL1(props){
@@ -82,7 +104,7 @@ ReactDOM.render(<ul>{dataCLASSESlist}</ul>,document.getElementById('OWL_DATA_CLA
  _data_OWL2(props){
  axios.get('/OWL_DATA_INDIVIDUALS',{})
        .then(function(response){
-    console.log(response.data);
+  console.log(response.data);
   console.log(response.status);
   console.log(response.statusText);
   console.log(response.headers);
@@ -195,19 +217,24 @@ ReactDOM.render(document.getElementById('LIB'))
         </div>
 		<div id  = 'wynik'>
     <div id  = 'LIB'>
-<button onClick={this._data_OWL_LIB1.bind(this)}> Pizza XML </button>
-<button onClick={this._data_OWL_LIB2.bind(this)}> 3w1 XML</button>
-<button onClick={this._data_OWL_LIB3.bind(this)}> Pizza XML</button>
+    Please click which data pack you want to use.
+<button onClick={this._data_OWL_LIB1.bind(this)}> PLACES </button>
+<button onClick={this._data_OWL_LIB2.bind(this)}> GUNS </button>
+<button onClick={this._data_OWL_LIB3.bind(this)}> PEOPLE </button>
     </div>
-    <div id  = 'DATAWORD'></div>
+    <div id  = 'DATAWORD'>In this place data about one word will display. Please click one word in editor to see the data.</div>
+    <div id = 'SEARCH_ALL_DOM_BUTTON'>
+<button onClick={this._search_all.bind(this)}> Click to analize currently inputted text </button>
+    </div>
+    <div id = 'SEARCH_ALL_DOM'> In this place data from analize currently inputted text will display.</div>
     <div id  = 'OWL_DATA_CLASSES'>
-    <button onClick={this._data_OWL1.bind(this)}>Show Classes defined in the ontology</button>
+    <button onClick={this._data_OWL1.bind(this)}>Click to show Classes defined in the ontology</button>
     </div>
     <div id  = 'OWL_DATA_INDIVIDUALS'>
-    <button onClick={this._data_OWL2.bind(this)}>Show The individuals (or instances) defined in the ontology</button>
+    <button onClick={this._data_OWL2.bind(this)}>Click to show The individuals (or instances) defined in the ontology</button>
     </div>
     <div id  = 'OWL_DATA_OBJECT_PROPERTIES'>
-    <button onClick={this._data_OWL3.bind(this)}>Show ObjectProperties defined in the ontology</button>
+    <button onClick={this._data_OWL3.bind(this)}>Click to show ObjectProperties defined in the ontology</button>
     </div>
     </div>
 		</div>
