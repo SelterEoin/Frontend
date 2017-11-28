@@ -5,6 +5,8 @@ var ReactDOM = require('react-dom');
 import {Editor, EditorState,RichUtils, convertToRaw,getDefaultKeyBinding, KeyBindingUtil} from 'draft-js';
 const {hasCommandModifier} = KeyBindingUtil;
 import { createStore } from 'redux';
+import {stateToHTML} from 'draft-js-export-html';
+import {stateFromHTML} from 'draft-js-import-html';
 
 var axios = require('axios');
 var qs = require('qs');
@@ -29,7 +31,10 @@ export default class App extends React.Component {
     var currentContent = editorState.getCurrentContent();
     var currentContentBlock = currentContent.getBlockForKey(anchorKey);
     var text = currentContentBlock.getText();
-    console.log(currentContentBlock);
+    let html = stateToHTML(currentContent);
+    let contentState = stateFromHTML(html);
+    console.log(contentState)
+    console.log(html)
     console.log(id_kursora+text)
     axios.get('/one_word', {
     params: {

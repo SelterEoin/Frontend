@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "draft-js": "^0.10.0",
+    "draft-js-export-html": "^1.2.0",
+    "draft-js-import-html": "^1.2.1",
     "react": "^15.5.4",
     "react-ajax": "^0.1.1",
     "react-dom": "^15.5.4",
