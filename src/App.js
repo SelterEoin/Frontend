@@ -31,10 +31,6 @@ export default class App extends React.Component {
     var currentContent = editorState.getCurrentContent();
     var currentContentBlock = currentContent.getBlockForKey(anchorKey);
     var text = currentContentBlock.getText();
-    let html = stateToHTML(currentContent);
-    let contentState = stateFromHTML(html);
-    console.log(contentState)
-    console.log(html)
     console.log(id_kursora+text)
     axios.get('/one_word', {
     params: {
@@ -61,6 +57,10 @@ export default class App extends React.Component {
     var currentContent = editorState.getCurrentContent();
     var currentContentBlock = currentContent.getBlockForKey(anchorKey);
     var text = currentContentBlock.getText();
+    let html = stateToHTML(currentContent);
+    let contentState = stateFromHTML(html);
+    console.log(contentState)
+    console.log(html)
     console.log(text);
   axios.get('/search_all',{params: {content:text}})
         .then(function(response){
