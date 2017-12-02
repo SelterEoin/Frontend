@@ -11,43 +11,48 @@ html
 #content
 {
       margin: auto;
-      margin-top: 70px;
       width: 80%;
       height: 80%;
       position: absolute;
+      padding: 10px;
       top:0;
       bottom: 0;
       left: 0;
       right: 0;
+      box-sizing: content-box;
 }
 .editor {
 border: 2px white;
 border-radius: 10px;
  margin: 5px;
- padding: 5px;
- width: 60%;
+ padding: 10px;
+ width: 57%;
  height: 90%;
  float: left;
- background: white;
+ background: rgba(255, 255, 255, 0.7);
+ border-radius: 3px;
+ box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
  box-sizing: content-box;
 }
 
 #wynik {
   margin: 5px;
+  padding: 10px;
   width: 35%;
 	height: 90%;
   float: right;
   overflow-y: scroll;
+  border-radius: 3px;
   box-sizing: content-box;
 }
 
 #OWL_DATA_CLASSES
 {
-  background-color: white;
-  border: 2px white;
-  border-radius: 10px;
- margin: 5px;
- padding: 5px;
+background: rgba(255, 255, 255, 0.7);
+border-radius: 3px;
+box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+ margin: 10px;
+ padding: 10px;
  width: auto;
  height: 40%;
  text-align: center;
@@ -55,11 +60,11 @@ border-radius: 10px;
 }
 #OWL_DATA_INDIVIDUALS
 {
-  background-color: white;
-  border: 2px white;
-  border-radius: 10px;
- margin: 5px;
- padding: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
  width: auto;
  height: 40%;
  text-align: center;
@@ -67,23 +72,71 @@ border-radius: 10px;
 }
 #OWL_DATA_OBJECT_PROPERTIES
 {
-  background-color: white;
-  border: 2px white;
-  border-radius: 10px;
- margin: 5px;
- padding: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
  width: auto;
  height: 40%;
  text-align: center;
  overflow-y: scroll;
 }
-#DATAWORD
+#SUBCLASSES_CLASS
 {
-  background-color: white;
-  border: 2px white;
-  border-radius: 10px;
- margin: 5px;
- padding: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
+ width: auto;
+ height: 40%;
+ text-align: center;
+ overflow-y: scroll;
+}
+#UPPERCLASSES_CLASS
+{
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
+ width: auto;
+ height: 40%;
+ text-align: center;
+ overflow-y: scroll;
+}
+#INDI_CLASS
+{
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
+ width: auto;
+ height: 40%;
+ text-align: center;
+ overflow-y: scroll;
+}
+#CLASS_INDI
+{
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
+ width: auto;
+ height: 40%;
+ text-align: center;
+ overflow-y: scroll;
+}
+#INDI_INDI
+{
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
  width: auto;
  height: 40%;
  text-align: center;
@@ -91,11 +144,11 @@ border-radius: 10px;
 }
 #LIB
 {
-  background-color: white;
-  border: 2px white;
-  border-radius: 10px;
- margin: 5px;
- padding: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
  width: auto;
  height: 40px;
  text-align: center;
@@ -103,11 +156,11 @@ border-radius: 10px;
 }
 #SEARCH_ALL_DOM
 {
-  background-color: white;
-  border: 2px white;
-  border-radius: 10px;
- margin: 5px;
- padding: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
  width: auto;
  height: 40%;
  text-align: center;
@@ -115,18 +168,18 @@ border-radius: 10px;
 }
 #SEARCH_ALL_DOM_BUTTON
 {
-  background-color: white;
-  border: 2px white;
-  border-radius: 10px;
- margin: 5px;
- padding: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
  width: auto;
  height: 25px;
  text-align: center;
  overflow-y: scroll;
 }
 td, th {
-    border: 1px solid #219bff;
+
     text-align: left;
     padding: 8px;
 }
@@ -137,7 +190,6 @@ ul{
   margin: 15px;
 }
 ol{
-
 list-style: none;
 font-size: 15px;
 font-family: 'Raleway', sans-serif;
@@ -155,7 +207,6 @@ display: block;
 padding: .4em .4em .4em 2em;
 *padding: .4em;
 margin: .5em 0;
-background:white;
 color: #444;
 text-decoration: none;
 transition: all .2s ease-in-out;
@@ -172,7 +223,6 @@ position: absolute;
 left: -1.3em;
 top: 50%;
 margin-top: -1.3em;
-background:#ffe820;
 height: 2em;
 width: 2em;
 line-height: 2em;

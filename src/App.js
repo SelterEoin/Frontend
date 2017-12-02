@@ -38,12 +38,32 @@ export default class App extends React.Component {
       content: text
     }
   })
-  .then(function (response) {
-    var dataforwordRAW = response.data.one_word_list;
-    var dataforwordLIST = dataforwordRAW.map(function(person)
-  {return <li><a href = '#'>{person}</a></li>;});
-  ReactDOM.render(<ul>{dataforwordLIST}</ul>,document.getElementById('DATAWORD'))
-  })
+.then(function(response){
+  var dataforwordRAW_subclass = response.data.subclass_of_list_response;
+  var dataforwordLIST_subclass = dataforwordRAW_subclass.map(function(person)
+{return <li><a href = '#'>{person}</a></li>;})
+ReactDOM.render(<ul>{dataforwordLIST_subclass}</ul>,document.getElementById('SUBCLASSES_CLASS'))
+
+var dataforwordRAW_class_above = response.data.classes_above_list_response;
+var dataforwordLIST_class_above = dataforwordRAW_class_above.map(function(person)
+{return <li><a href = '#'>{person}</a></li>;})
+ReactDOM.render(<ul>{dataforwordLIST_class_above}</ul>,document.getElementById('UPPERCLASSES_CLASS'))
+
+var dataforwordRAW_INDI_CLASS = response.data.instances_from_the_clicked_class_list_response;
+var dataforwordLIST_INDI_CLASS = dataforwordRAW_INDI_CLASS.map(function(person)
+{return <li><a href = '#'>{person}</a></li>;})
+ReactDOM.render(<ul>{dataforwordLIST_INDI_CLASS}</ul>,document.getElementById('INDI_CLASS'))
+
+var dataforwordRAW_CLASS_INDI = response.data.sorted_above_INDI_list_response;
+var dataforwordLIST_CLASS_INDI = dataforwordRAW_CLASS_INDI.map(function(person)
+{return <li><a href = '#'>{person}</a></li>;})
+ReactDOM.render(<ul>{dataforwordLIST_CLASS_INDI}</ul>,document.getElementById('CLASS_INDI'))
+
+var dataforwordRAW_INDI_INDI = response.data.instances_from_the_same_class_list_response;
+var dataforwordLIST_INDI_INDI = dataforwordRAW_INDI_INDI.map(function(person)
+{return <li><a href = '#'>{person}</a></li>;})
+ReactDOM.render(<ul>{dataforwordLIST_INDI_INDI}</ul>,document.getElementById('INDI_INDI'))
+})
   .catch(function (error) {
     console.log(error);
   });
@@ -59,17 +79,21 @@ export default class App extends React.Component {
     var text = currentContentBlock.getText();
     let html = stateToHTML(currentContent);
     let contentState = stateFromHTML(html);
-    console.log(contentState)
+    var globalObject = this;
     console.log(html)
-    console.log(text);
+    console.log(text)
   axios.get('/search_all',{params: {content:text}})
         .then(function(response){
-     console.log(response.data);
-   console.log(response.status);
-   console.log(response.statusText);
-   console.log(response.headers);
-   console.log(response.config);
  var words_in = response.data.response_search_all_list
+console.log(words_in)
+    var newHTMLContent = html;
+    words_in.forEach(currentWord => {
+          console.log(words_in)
+          newHTMLContent = newHTMLContent.replace(currentWord, <strong>${currentWord[0]}</strong>);
+        });
+    globalObject.setState({
+      editorState: EditorState.createWithContent(stateFromHTML(newHTMLContent))
+    });
  var words_in_list = words_in.map(function(person){
  return <li><a href = '#'>{person}</a></li>;
 });
@@ -78,6 +102,7 @@ ReactDOM.render(<ul>{words_in_list}</ul>,document.getElementById('SEARCH_ALL_DOM
      console.log(error);
    });
  }
+
   /*-------------------------------------------------------------------------------------------*/
 
   _data_OWL1(props){
@@ -170,7 +195,6 @@ ReactDOM.render(document.getElementById('LIB'))
 }
 /*-------------------------------------------------------------------------------------------*/
   render() {
-
     const megadraftActions = [
       { type: "inline", label: "B", style: "BOLD", icon: MegadraftIcons.BoldIcon },
       { type: "inline", label: "I", style: "ITALIC", icon: MegadraftIcons.ItalicIcon },
@@ -180,32 +204,6 @@ ReactDOM.render(document.getElementById('LIB'))
       { type: "block", label: "H2", style: "header-two", icon: MegadraftIcons.H2Icon },
       { type: "block", label: "QT", style: "blockquote", icon: MegadraftIcons.BlockQuoteIcon }
     ];
-
-      const {editorState} = this.state;
-      const contentState = convertToRaw( editorState.getCurrentContent());
-      const contentState2 =  editorState.getCurrentContent();
-      var synrequest =  JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-	    const x = editorState.getSelection();
-      var usersWithName = synrequest
-	  /*y odpowiada za pobieranie samego tekstu z edytora*/
-      const y = editorState.getCurrentContent().getPlainText()
-	/*to odpowiada za pobieranie zaznaczenia*/
-      var selectionState = editorState.getSelection();
-      var anchorKey = selectionState.getAnchorKey();
-      var currentContent = editorState.getCurrentContent();
-      var currentContentBlock = currentContent.getBlockForKey(anchorKey);
-      var start = selectionState.getStartOffset();
-      var end = selectionState.getEndOffset();
-      var selectedText = currentContentBlock.getText().slice(start, end);
-      var end2 = selectionState.focusOffset
-      var end3 = selectionState.startOffset
-      var text = currentContentBlock.getText();
-      var textsplit = text.split(" ");
-      var ttt = textsplit[0]
-      const startKey = editorState.getSelection().getStartKey();
-      const startOffset = editorState.getSelection().getStartOffset();
-      var blockWithLinkAtBeginning = contentState2.getBlockForKey(startKey);
-      const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
     return (
     <div id='content'>
       <div className='editor' onClick={this.onClick}>
@@ -227,22 +225,35 @@ ReactDOM.render(document.getElementById('LIB'))
 <button onClick={this._data_OWL_LIB2.bind(this)}> GUNS </button>
 <button onClick={this._data_OWL_LIB3.bind(this)}> PEOPLE </button>
     </div>
-    <div id  = 'DATAWORD'>In this place data about one word will display. Please click one word in editor to see the data.</div>
+
+    <div id  = 'UPPERCLASSES_CLASS'>If pressed word is a class - upperclasses of this class will display here.</div>
+
+    <div id  = 'SUBCLASSES_CLASS'>If pressed word is a class - subclasses of this class will display here.</div>
+
+    <div id  = 'INDI_CLASS'>If pressed word is a class - individuals of this class will display here.</div>
+
+    <div id  = 'CLASS_INDI'>If pressed word is a individual - upperclasses of this individual will display here.</div>
+
+    <div id  = 'INDI_INDI'>If pressed word is a individual - siblings of this individual will display here.</div>
+
     <div id = 'SEARCH_ALL_DOM_BUTTON'>
 <button onClick={this._search_all.bind(this)}> Click to analize currently inputted text </button>
     </div>
-    <div id = 'SEARCH_ALL_DOM'> In this place data from analize currently inputted text will display.</div>
+    <div id = 'SEARCH_ALL_DOM'> In this place all words that are in dictionary of choosen discipline, will display.</div>
+
     <div id  = 'OWL_DATA_CLASSES'>
     <button onClick={this._data_OWL1.bind(this)}>Click to show Classes defined in the ontology</button>
     </div>
+
     <div id  = 'OWL_DATA_INDIVIDUALS'>
     <button onClick={this._data_OWL2.bind(this)}>Click to show The individuals (or instances) defined in the ontology</button>
     </div>
+
     <div id  = 'OWL_DATA_OBJECT_PROPERTIES'>
     <button onClick={this._data_OWL3.bind(this)}>Click to show ObjectProperties defined in the ontology</button>
     </div>
     </div>
-		</div>
+    </div>
     );
   }
 }
