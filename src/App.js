@@ -89,7 +89,8 @@ console.log(words_in)
     var newHTMLContent = html;
     words_in.forEach(currentWord => {
           console.log(words_in)
-          newHTMLContent = newHTMLContent.replace(currentWord, <strong>${currentWord[0]}</strong>);
+          console.log(currentWord)
+          newHTMLContent = newHTMLContent.replace(currentWord, <strong>${currentWord}</strong>);
         });
     globalObject.setState({
       editorState: EditorState.createWithContent(stateFromHTML(newHTMLContent))
