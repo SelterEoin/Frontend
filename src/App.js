@@ -7,6 +7,7 @@ const {hasCommandModifier} = KeyBindingUtil;
 import { createStore } from 'redux';
 import {stateToHTML} from 'draft-js-export-html';
 import {stateFromHTML} from 'draft-js-import-html';
+import Graph from "react-graph-vis";
 
 var axios = require('axios');
 var qs = require('qs');
@@ -21,7 +22,49 @@ export default class App extends React.Component {
     this.onChange = (editorState) => this.setState({editorState})
     this.onClick = this.handleClick.bind(this);
   }
+/*-----------------------------------------------------------------*/
 
+GRAPH_DOM = (props) => {
+const graph = {
+  nodes: [
+    { id: 1, label: "Rodzic"},
+    { id: 2, label: "syn1"},
+    { id: 3, label: "syn2"},
+    { id: 4, label: "syn3"}
+
+  ],
+  edges: [{ from: 1, to: 2 }, { from: 1, to: 3 }, { from: 1, to: 4 }]
+};
+
+const options = {
+  layout: {
+    hierarchical: false
+  },
+
+  edges: {
+    color: "#000000",
+    shadow: true,
+    smooth: true,
+  }
+};
+
+const events = {
+  select: function(event) {
+    var { nodes, edges } = event;
+    console.log("Selected nodes:");
+    console.log(nodes);
+    console.log("Selected edges:");
+    console.log(edges);
+  }
+};
+
+ReactDOM.render(
+  <div>
+    <Graph graph={graph} options={options} events={events} style={{ height: "240px" }} />
+  </div>,
+  document.getElementById("GRAPH")
+);
+}
   /*------------------------------------------------------------------------------------------*/
   handleClick = (event) => {
     const {editorState} = this.state;
@@ -63,6 +106,11 @@ var dataforwordRAW_INDI_INDI = response.data.instances_from_the_same_class_list_
 var dataforwordLIST_INDI_INDI = dataforwordRAW_INDI_INDI.map(function(person)
 {return <li><a href = '#'>{person}</a></li>;})
 ReactDOM.render(<ul>{dataforwordLIST_INDI_INDI}</ul>,document.getElementById('INDI_INDI'))
+
+var dataforwordRAW_REL_INDI = response.data.relations_result_list_response;
+var dataforwordLIST_REL_INDI = dataforwordRAW_REL_INDI.map(function(person)
+{return <li><a href = '#'>{person}</a></li>;})
+ReactDOM.render(<ul>{dataforwordLIST_REL_INDI}</ul>,document.getElementById('REL_INDI'))
 })
   .catch(function (error) {
     console.log(error);
@@ -90,7 +138,7 @@ console.log(words_in)
     words_in.forEach(currentWord => {
           console.log(words_in)
           console.log(currentWord)
-          newHTMLContent = newHTMLContent.replace(currentWord, <strong>${currentWord}</strong>);
+          newHTMLContent = newHTMLContent.replace(currentWord,'<strong>'+currentWord+'</strong>');
         });
     globalObject.setState({
       editorState: EditorState.createWithContent(stateFromHTML(newHTMLContent))
@@ -227,6 +275,10 @@ ReactDOM.render(document.getElementById('LIB'))
 <button onClick={this._data_OWL_LIB3.bind(this)}> PEOPLE </button>
     </div>
 
+    <div id = 'GRAPH'>
+<button onClick={this.GRAPH_DOM.bind(this)}>Click to show Classes defined in the ontology</button>
+    </div>
+
     <div id  = 'UPPERCLASSES_CLASS'>If pressed word is a class - upperclasses of this class will display here.</div>
 
     <div id  = 'SUBCLASSES_CLASS'>If pressed word is a class - subclasses of this class will display here.</div>
@@ -237,22 +289,25 @@ ReactDOM.render(document.getElementById('LIB'))
 
     <div id  = 'INDI_INDI'>If pressed word is a individual - siblings of this individual will display here.</div>
 
+    <div id  = 'REL_INDI'>If pressed word is a individual - relacions of this individual will display here.</div>
+
     <div id = 'SEARCH_ALL_DOM_BUTTON'>
-<button onClick={this._search_all.bind(this)}> Click to analize currently inputted text </button>
+    <button onClick={this._search_all.bind(this)}> Click to analize currently inputted text </button>
     </div>
     <div id = 'SEARCH_ALL_DOM'> In this place all words that are in dictionary of choosen discipline, will display.</div>
 
-    <div id  = 'OWL_DATA_CLASSES'>
+    <div id = 'OWL_DATA_CLASSES_BUTTON'>
     <button onClick={this._data_OWL1.bind(this)}>Click to show Classes defined in the ontology</button>
     </div>
-
-    <div id  = 'OWL_DATA_INDIVIDUALS'>
+    <div id  = 'OWL_DATA_CLASSES'>Click the above button to see all classes defined in the ontology.</div>
+    <div id = 'OWL_DATA_INDIVIDUALS_BUTTON'>
     <button onClick={this._data_OWL2.bind(this)}>Click to show The individuals (or instances) defined in the ontology</button>
     </div>
-
-    <div id  = 'OWL_DATA_OBJECT_PROPERTIES'>
+    <div id  = 'OWL_DATA_INDIVIDUALS'>Click the above button to see all individuals defined in the ontology.</div>
+    <div id = 'OWL_DATA_OBJECT_PROPERTIES_BUTTON'>
     <button onClick={this._data_OWL3.bind(this)}>Click to show ObjectProperties defined in the ontology</button>
     </div>
+    <div id  = 'OWL_DATA_OBJECT_PROPERTIES'>Click the above button to see all object properties defined in the ontology.</div>
     </div>
     </div>
     );

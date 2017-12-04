@@ -1,7 +1,8 @@
 html
 {
   font-family: sans-serif;
-  background: linear-gradient(45deg, #fc2323, #219bff);
+  background: linear-gradient(45deg, #dee5a5,#219bff);
+  background-repeat: no-repeat;
   height: 100%;
 }
 
@@ -33,6 +34,7 @@ border-radius: 10px;
  border-radius: 3px;
  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
  box-sizing: content-box;
+ overflow-y: scroll;
 }
 
 #wynik {
@@ -46,6 +48,18 @@ border-radius: 10px;
   box-sizing: content-box;
 }
 
+#GRAPH
+{
+background: rgba(255, 255, 255, 0.7);
+border-radius: 3px;
+box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+ margin: 10px;
+ padding: 10px;
+ width: auto;
+ height: 40%;
+ text-align: center;
+ overflow-y: scroll;
+}
 #OWL_DATA_CLASSES
 {
 background: rgba(255, 255, 255, 0.7);
@@ -142,6 +156,18 @@ box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
  text-align: center;
  overflow-y: scroll;
 }
+#REL_INDI
+{
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
+ width: auto;
+ height: 40%;
+ text-align: center;
+ overflow-y: scroll;
+}
 #LIB
 {
   background: rgba(255, 255, 255, 0.7);
@@ -176,7 +202,39 @@ box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
  width: auto;
  height: 25px;
  text-align: center;
- overflow-y: scroll;
+}
+#OWL_DATA_CLASSES_BUTTON
+{
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
+ width: auto;
+ height: 25px;
+ text-align: center;
+}
+#OWL_DATA_INDIVIDUALS_BUTTON
+{
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
+ width: auto;
+ height: 35px;
+ text-align: center;
+}
+#OWL_DATA_OBJECT_PROPERTIES_BUTTON
+{
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+   margin: 10px;
+   padding: 10px;
+ width: auto;
+ height: 25px;
+ text-align: center;
 }
 td, th {
 
